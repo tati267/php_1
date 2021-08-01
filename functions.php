@@ -1,7 +1,6 @@
 <?php
 function renderTemplate($name, $data) {
     $name = 'templates/' . $name;
-
     if(file_exists($name)) {
         ob_start();
         extract($data);
@@ -21,5 +20,15 @@ function calculatePrice($price) {
         $price_format = number_format($price_round);
         return $price_format. '<b class="rub">р</b>';
     }
+}
+
+function calculateTimer() {
+    date_default_timezone_set('Australia/Sydney');
+    $curtime = date('H:i:s');
+    $future   = '02.08.2021';
+    $diff = strtotime($future) - strtotime($curtime);
+    $hours = floor($diff / 3600);
+    $min = date('i', $diff);
+    print($hours.':'.$min);
 }
 ?>

@@ -5,6 +5,7 @@ $is_auth = (bool) rand(0, 1);
 $page_title = 'Home';
 $user_name = 'Константин';
 $user_avatar = 'img/user.jpg';
+$date = ['30.07.2021','31.07.2021'];
 $categories = [
 [
     'category' =>'Доски и лыжи',
@@ -73,6 +74,7 @@ $lots = [
 $page_content = renderTemplate('index.php', [
     'categories' => $categories,
     'lots' => $lots,
+    'date'=> $date,
 ]);
 
 $layout_content = renderTemplate('layout.php', [
