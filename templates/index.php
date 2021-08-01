@@ -28,7 +28,7 @@
                         <span class="lot__amount">Стартовая цена</span>
                         <span class="lot__cost"><?=calculatePrice($lot['price'])?></span>
                     </div>
-                    <div class="lot__timer timer"><?=calculateTimer($date[0],$date[1]);?></div>
+                    <div class="lot__timer timer"><?=calculateTimer();?></div>
                 </div>
             </div>
         </li>
