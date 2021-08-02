@@ -25,10 +25,24 @@ function calculatePrice($price) {
 function calculateTimer() {
     date_default_timezone_set('Australia/Sydney');
     $curtime = date('H:i:s');
-    $future   = '02.08.2021';
-    $diff = strtotime($future) - strtotime($curtime);
+    $future   = strtotime('tomorrow');
+    $diff = $future - strtotime($curtime);
     $hours = floor($diff / 3600);
     $min = date('i', $diff);
     print($hours.':'.$min);
+}
+
+function calculateTimeBets($ts) {
+    $time_diff = $_SERVER['REQUEST_TIME'] - $ts;
+    if ($time_diff > 86400) { // difference is more than 24h
+        $time_return = date('d.m.Y H:i', $ts);
+    }
+    else if ($time_diff > 3600) { // difference between 1h-24h
+        $time_return = date('G', $ts) . ' hours ago';
+    }
+    else { // less than 1h
+        $time_return = intval(date('i', $ts)) . ' minuts ago';
+    }
+    return $time_return;
 }
 ?>
