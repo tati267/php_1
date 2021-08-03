@@ -1,5 +1,5 @@
 <?php
-function renderTemplate($name, $data) {
+function includeTemplate($name, $data) {
     $name = 'templates/' . $name;
     if(file_exists($name)) {
         ob_start();

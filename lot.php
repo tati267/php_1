@@ -19,19 +19,19 @@
         exit(http_response_code(404));
     }
 
-    $page_content = renderTemplate('lot.php', [
+    $page_content = includeTemplate('lot.php', [
         'categories' => $categories,
         'lots' => $lot,
         'bets' => $bets,
     ]);
 
-    $layout_content = renderTemplate('layout.php', [
+    $layout_content = includeTemplate('layout.php', [
         'content' => $page_content,
         'is_auth' => $is_auth,
         'categories' => $categories,
         'user_name' => $user_name,
         'user_avatar'=>$user_avatar,
-        'title' => $page_title
+        'title' => 'Lot'
     ]);
 
     print($layout_content);
