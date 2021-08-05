@@ -20,7 +20,7 @@
                 <input type="search" name="search" placeholder="Search lot">
                 <input class="main-header__search-btn" type="submit" name="find" value="Search">
             </form>
-            <a class="main-header__add-lot button" href="add-lot.html">Add lot</a>
+            <a class="main-header__add-lot button" href="add.php">Add lot</a>
 
             <nav class="user-menu">
 
@@ -92,7 +92,7 @@
                     </svg>
                 </a>
             </div>
-            <a class="main-footer__add-lot button" href="add-lot.html">Add lot</a>
+            <a class="main-footer__add-lot button" href="add.php">Add lot</a>
             <div class="main-footer__developed-by">
                 <span class="visually-hidden">Made by:</span>
                 <a class="logo-academy" href="https://htmlacademy.ru/intensive/php">HTML Academy
