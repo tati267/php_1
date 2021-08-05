@@ -1,6 +1,6 @@
 <?php
 $lot_name = $lot['lot-name'] ?? '';
-$category = $lot['category'] ?? '';
+$category = $lot['category'] ?? 'Select category';
 $message  = $lot['message']  ?? '';
 $lot_rate = $lot['lot-rate'] ?? '';
 $lot_step = $lot['lot-step'] ?? '';
@@ -30,8 +30,8 @@ $lot_date = $lot['lot-date'] ?? '';
             </div>
             <div class="form__item <?= isset($errors['category']) ? 'form__item--invalid' : '' ?>">
                 <label for="category">Category</label>
-                <select id="category" name="category">
-                    <option selected><?= $category ?></option>
+                <select id="category" name="category" required>
+                    <option selected>Select category</option>
                     <?php foreach($categories as $key => $value): ?>
                     <option><?=$value['category']?></option>
                     <?php endforeach?>
@@ -59,8 +59,8 @@ $lot_date = $lot['lot-date'] ?? '';
                 <label for="photo2">
                     <span>+ Add</span>
                 </label>
+                <span class="form__error"><?= $errors['file'] ?? '' ?></span>
             </div>
-            <span class="form__error"><?= $errors['file'] ?? '' ?></span>
         </div>
         <div class="form__container-three">
             <div class="form__item form__item--small <?= isset($errors['lot-rate']) ? 'form__item--invalid' : '' ?>">
