@@ -3,46 +3,50 @@ require 'data.php';
 require 'functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $lot = $_POST;
+    $form = $_POST;
     $lot_photo = $_FILES['lot-photo'];
 
     $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
     $errors = [];
 
     foreach ($required_fields as $field) {
-		if (empty($_POST[$field])) {
+		if (empty($lot[$field])) {
             $errors[$field] = 'Fill up this field';
 		}
 	}
 
-    foreach ($lot as $key=>$value) {
-        if ($key=== 'category') {
-            if($value==='Select category') {
-                $errors['category'] = 'Choose category';
+    foreach ($form as $key=>$value) {
+        if (empty($form[$key])) {
+            $errors[$key] = 'Fill up this field';
+		} else {
+            if ($key=== 'category') {
+                if($value==='Select category') {
+                    $errors['category'] = 'Choose category';
+                }
             }
-        }
 
-        if ($key=== 'lot-rate') {
-            if($value=="" || !filter_var($value, FILTER_VALIDATE_INT)) {
-                $errors['lot-rate'] = 'Insert integer';
+            if ($key=== 'lot-rate') {
+                if($value=="" || !filter_var($value, FILTER_VALIDATE_INT)) {
+                    $errors['lot-rate'] = 'Insert integer';
+                }
             }
-        }
 
-        if ($key === 'lot-step') {
-            if($value==="" || !filter_var($value, FILTER_VALIDATE_INT)) {
-                $errors['lot-step'] = 'Insert integer';
+            if ($key === 'lot-step') {
+                if($value==="" || !filter_var($value, FILTER_VALIDATE_INT)) {
+                    $errors['lot-step'] = 'Insert integer';
+                }
             }
-        }
 
-        if ($key === 'lot-name') {
-            if ($value==="" || !preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
-                $errors['lot-name'] = 'should contain only alphanumeric!';
+            if ($key === 'lot-name') {
+                if ($value==="" || !preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
+                    $errors['lot-name'] = 'should contain only alphanumeric!';
+                }
             }
-        }
 
-        if ($key === 'message') {
-            if ($value==="" || !preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
-                $errors['message'] = 'should contain only alphanumeric!';
+            if ($key === 'message') {
+                if ($value==="" || !preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
+                    $errors['message'] = 'should contain only alphanumeric!';
+                }
             }
         }
     }
@@ -59,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             else {
                 move_uploaded_file($tmp_name, 'img/' . $path);
-                $lot['path'] = $path;
+                $form['path'] = $path;
             }
         }
     }
@@ -70,13 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (count($errors)) {
 		$page_content = includeTemplate('add.php', [
             'categories' => $categories,
-            'lot' => $lot,
+            'form' => $form,
             'errors' => $errors,
         ]);
 	}
     else {
 		$page_content = includeTemplate('lot.php', [
-            'lot' => $lot,
+            'form' => $form,
             'categories' => $categories,
         ]);
 	}

@@ -1,10 +1,10 @@
 <?php
-$lot_name = $lot['lot-name'] ?? '';
-$category = $lot['category'] ?? 'Select category';
-$message  = $lot['message']  ?? '';
-$lot_rate = $lot['lot-rate'] ?? '';
-$lot_step = $lot['lot-step'] ?? '';
-$lot_date = $lot['lot-date'] ?? '';
+$lot_name = $form['lot-name'] ?? '';
+$category = $form['category'] ?? 'Select category';
+$message  = $form['message']  ?? '';
+$lot_rate = $form['lot-rate'] ?? '';
+$lot_step = $form['lot-step'] ?? '';
+$lot_date = $form['lot-date'] ?? '';
 ?>
 
 <main>
