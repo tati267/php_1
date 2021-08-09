@@ -3,7 +3,7 @@ $is_auth = (bool) rand(0, 1);
 $user_name = 'Costa';
 $user_avatar = 'img/user.jpg';
 $categories = [
-['category' =>'Snowboard and ski','class'=>'boards'],
+['category' =>'Snowboard&Ski','class'=>'boards'],
 ['category' =>'Bindings','class'=>'bindings'],
 ['category' =>'Boots','class'=>'boots'],
 ['category' =>'Snowwear','class'=>'clothing'],
@@ -14,7 +14,7 @@ $lots = [
 [
     'id' => 1,
     'name' => '2014 Rossignol District Snowboard',
-    'category' => 'Snowboard and ski',
+    'category' => 'Snowboard&Ski',
     'price' => '350',
     'url' => 'img/lot-1.jpg',
     'about' => ''
@@ -22,7 +22,7 @@ $lots = [
 [
     'id' => 2,
     'name' => 'DC Ply Mens 2016/2017 Snowboard',
-    'category' => 'Snowboard and ski',
+    'category' => 'Snowboard&Ski',
     'price' => '299',
     'url' => 'img/lot-2.jpg',
 ],
@@ -62,4 +62,10 @@ $bets = [
     ['name' => 'Paul', 'price' => 280, 'ts' => strtotime('-' . rand(1, 18) .' hour')],
     ['name' => 'Catherine', 'price' => 300, 'ts' => strtotime('-' . rand(25, 50) .' hour')],
     ['name' => 'Skye', 'price' => 250, 'ts' => strtotime('last week')]
+];
+
+$users = [
+    ['email'=>'ignat.v@gmail.com', 'password' => 'ug0GdVMi'],
+    ['email'=>'kitty_93@gmail.com', 'password' => 'daecNazD'],
+    ['email'=>'warrior07@mail.ru', 'password' => 'oixb3aL8'],
 ];
