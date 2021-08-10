@@ -5,37 +5,25 @@ require 'functions.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $form_login = $_POST;
+    $form = $_POST;
 
     $required = ['email', 'password'];
     $errors = [];
-
-    foreach ($form_login as $field => $value) {
+    foreach ($form as $field => $value) {
         if ($field == 'email') {
             if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                $errors[$field] = 'Email должен быть корректным';
+                $errors[$field] = 'Email has to be correct';
             }
         }
         if (empty($value)) {
-            $errors[$field] = 'Это поле надо заполнить';
+            $errors[$field] = 'Fill up this field';
         }
-    }
-
-    if (!count($errors) and $user = searchUserByEmail($form_login['email'], $users)) {
-        if (password_verify($form_login['password'], $user['password'])) {
-            $_SESSION['user'] = $user;
-        }
-        else {
-            $errors['password'] = 'Неверный пароль';
-        }
-    }
-    else {
-        $errors['email'] = 'Такой пользователь не найден';
     }
 
     if (count($errors)) {
         $page_content = includeTemplate('login.php', [
-            'form_login' => $form_login,
+            'categories' => $categories,
+            'form' => $form,
             'errors' => $errors
         ]);
     }

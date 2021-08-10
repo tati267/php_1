@@ -65,7 +65,16 @@ $bets = [
 ];
 
 $users = [
-    ['email'=>'ignat.v@gmail.com', 'password' => 'ug0GdVMi'],
-    ['email'=>'kitty_93@gmail.com', 'password' => 'daecNazD'],
-    ['email'=>'warrior07@mail.ru', 'password' => 'oixb3aL8'],
+    [
+        'email'=>'ignat.v@gmail.com',
+        'password' => 'ug0GdVMi'
+    ],
+    [
+        'email'=>'kitty_93@gmail.com',
+        'password' => 'daecNazD'
+    ],
+    [
+        'email'=>'warrior07@mail.ru',
+        'password' => 'oixb3aL8'
+    ],
 ];
