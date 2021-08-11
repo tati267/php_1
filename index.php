@@ -1,8 +1,13 @@
 <?php
+require ('config.php');
 require ('functions.php');
 require ('data.php');
 
 $lot = null;
+
+if (isset($_SESSION['user'])) {
+    $user_name = $_SESSION['user']['name'];
+}
 
 if (isset($_GET['lot_id'])) {
 	$lot_id = $_GET['lot_id'];

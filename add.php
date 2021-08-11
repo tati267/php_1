@@ -1,6 +1,11 @@
 <?php
 require 'data.php';
 require 'functions.php';
+require 'config.php';
+
+if (!$is_auth) {
+    exit(http_response_code(404));
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
@@ -9,47 +14,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
     $errors = [];
 
-    foreach ($required_fields as $field) {
-		if (empty($lot[$field])) {
-            $errors[$field] = 'Fill up this field';
-		}
-	}
-
-    foreach ($form as $key=>$value) {
-        if (empty($form[$key])) {
-            $errors[$key] = 'Fill up this field';
-		} else {
-            if ($key=== 'category') {
-                if($value==='Select category') {
-                    $errors['category'] = 'Choose category';
-                }
-            }
-
-            if ($key=== 'lot-rate') {
-                if($value=="" || !filter_var($value, FILTER_VALIDATE_INT)) {
-                    $errors['lot-rate'] = 'Insert integer';
-                }
-            }
-
-            if ($key === 'lot-step') {
-                if($value==="" || !filter_var($value, FILTER_VALIDATE_INT)) {
-                    $errors['lot-step'] = 'Insert integer';
-                }
-            }
-
-            if ($key === 'lot-name') {
-                if ($value==="" || !preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
-                    $errors['lot-name'] = 'should contain only alphanumeric!';
-                }
-            }
-
-            if ($key === 'message') {
-                if ($value==="" || !preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
-                    $errors['message'] = 'should contain only alphanumeric!';
-                }
+    foreach ($form as $field => $value) {
+        if ($field=== 'category') {
+            if($value==='Select category') {
+                $errors['category'] = 'Choose category';
             }
         }
+
+        if ($field=== 'lot-rate') {
+            if(!filter_var($value, FILTER_VALIDATE_INT)) {
+                $errors['lot-rate'] = 'Insert integer';
+            }
+        }
+
+        if ($field === 'lot-step') {
+            if(!filter_var($value, FILTER_VALIDATE_INT)) {
+                $errors['lot-step'] = 'Insert integer';
+            }
+        }
+
+        if ($field === 'lot-name') {
+            if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
+                $errors['lot-name'] = 'should contain only alphanumeric!';
+            }
+        }
+
+        if ($field === 'message') {
+            if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
+                $errors['message'] = 'should contain only alphanumeric!';
+            }
+        }
+        if (empty($value)) {
+            $errors[$field] = 'Fill up this field';
+        }
     }
+
     if ($_FILES['lot-photo']['name']) {
         if (isset($_FILES['lot-photo']['name'])) {
             $tmp_name = $lot_photo['tmp_name'];

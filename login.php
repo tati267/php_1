@@ -1,41 +1,40 @@
 <?php
 require 'data.php';
+require 'config.php';
 require 'functions.php';
 
-session_start();
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $form_login = $_POST;
+    $form = $_POST;
 
     $required = ['email', 'password'];
     $errors = [];
-
-    foreach ($form_login as $field => $value) {
+    foreach ($form as $field => $value) {
         if ($field == 'email') {
             if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                $errors[$field] = 'Email должен быть корректным';
+                $errors[$field] = 'Email has to be correct';
             }
         }
-        if (empty($value)) {
-            $errors[$field] = 'Это поле надо заполнить';
+        if (empty($value) ) {
+            $errors[$field] = 'Fill up this field';
         }
-    }
+    };
 
-    if (!count($errors) and $user = searchUserByEmail($form_login['email'], $users)) {
-        if (password_verify($form_login['password'], $user['password'])) {
+    if (!count($errors)&&$user = searchUserByEmail($form['email'], $users)) {
+        if (password_verify($form['password'], $user['password'])) {
             $_SESSION['user'] = $user;
         }
         else {
-            $errors['password'] = 'Неверный пароль';
+            $errors['password'] = 'Wrong password';
         }
     }
     else {
-        $errors['email'] = 'Такой пользователь не найден';
+        $errors['email'] = 'This email have not been found';
     }
 
     if (count($errors)) {
         $page_content = includeTemplate('login.php', [
-            'form_login' => $form_login,
+            'categories' => $categories,
+            'form' => $form,
             'errors' => $errors
         ]);
     }

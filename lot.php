@@ -1,6 +1,7 @@
 <?php
     require 'data.php';
     require 'functions.php';
+    require 'config.php';
 
     $lot = null;
     $cookie_name = 'lot_history';
@@ -40,7 +41,8 @@
 
     $page_content = includeTemplate('lot.php', [
         'categories' => $categories,
-        'lots' => $lot,
+        'lot' => $lot,
+        'is_auth' => $is_auth,
         'bets' => $bets,
     ]);
 
