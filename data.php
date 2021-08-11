@@ -1,7 +1,4 @@
 <?php
-$is_auth = (bool) rand(0, 1);
-$user_name = 'Costa';
-$user_avatar = 'img/user.jpg';
 $categories = [
 ['category' =>'Snowboard&Ski','class'=>'boards'],
 ['category' =>'Bindings','class'=>'bindings'],
@@ -67,14 +64,17 @@ $bets = [
 $users = [
     [
         'email'=>'ignat.v@gmail.com',
-        'password' => 'ug0GdVMi'
+        'name' => 'John',
+        'password' => '$2y$10$OqvsKHQwr0Wk6FMZDoHo1uHoXd4UdxJG/5UDtUiie00XaxMHrW8ka' // ug0GdVMi
     ],
     [
         'email'=>'kitty_93@gmail.com',
-        'password' => 'daecNazD'
+        'name' => 'Helen',
+        'password' => '$2y$10$bWtSjUhwgggtxrnJ7rxmIe63ABubHQs0AS0hgnOo41IEdMHkYoSVa' // daecNazD
     ],
     [
         'email'=>'warrior07@mail.ru',
-        'password' => 'oixb3aL8'
+        'name' => 'Warrior',
+        'password' => '$2y$10$2OxpEH7narYpkOT1H5cApezuzh10tZEEQ2axgFOaKW.55LxIJBgWW' // oixb3aL8
     ],
 ];

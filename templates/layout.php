@@ -20,16 +20,19 @@
                 <input type="search" name="search" placeholder="Search lot">
                 <input class="main-header__search-btn" type="submit" name="find" value="Search">
             </form>
+            <?php if ($is_auth): ?>
             <a class="main-header__add-lot button" href="add.php">Add lot</a>
+            <?php endif; ?>
 
             <nav class="user-menu">
 
-                <?php if ($is_auth=="true"): ?>
+                <?php if ($is_auth): ?>
                 <div class="user-menu__image">
                     <img src="<?=$user_avatar?>" width="40" height="40" alt="User">
                 </div>
                 <div class="user-menu__logged">
                     <p><?=$user_name?></p>
+                    <a href="<?='./logout.php'?>">Logout</a>
                 </div>
                 <?php else: ?>
                 <ul class="user-menu__list">
@@ -41,8 +44,6 @@
                     </li>
                 </ul>
                 <?php endif; ?>
-
-
             </nav>
         </div>
     </header>

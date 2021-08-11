@@ -1,8 +1,7 @@
 <?php
 require 'data.php';
+require 'config.php';
 require 'functions.php';
-
-session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
@@ -15,9 +14,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $errors[$field] = 'Email has to be correct';
             }
         }
-        if (empty($value)) {
+        if (empty($value) ) {
             $errors[$field] = 'Fill up this field';
         }
+    };
+
+    if (!count($errors)&&$user = searchUserByEmail($form['email'], $users)) {
+        if (password_verify($form['password'], $user['password'])) {
+            $_SESSION['user'] = $user;
+        }
+        else {
+            $errors['password'] = 'Wrong password';
+        }
+    }
+    else {
+        $errors['email'] = 'This email have not been found';
     }
 
     if (count($errors)) {

@@ -1,6 +1,7 @@
 <?php
     require 'data.php';
     require 'functions.php';
+    require 'config.php';
 
     $lots_history = [];
 

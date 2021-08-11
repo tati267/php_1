@@ -1,6 +1,11 @@
 <?php
 require 'data.php';
 require 'functions.php';
+require 'config.php';
+
+if (!$is_auth) {
+    exit(http_response_code(404));
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
