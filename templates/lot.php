@@ -39,6 +39,7 @@
                             Min bid <span><?= $lots['price']+50 ?> €</span>
                         </div>
                     </div>
+                    <?php if ($is_auth): ?>
                     <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
                         <p class="lot-item__form-item">
                             <label for="cost">Your bid</label>
@@ -46,6 +47,7 @@
                         </p>
                         <button type="submit" class="button">Make bid</button>
                     </form>
+                    <?php endif; ?>
                 </div>
                 <div class="history">
                     <h3>Bid history (<span>10</span>)</h3>
