@@ -54,7 +54,7 @@ $lots = [
 ]
 ];
 
-$bets = [
+$Bids = [
     ['name' => 'Alex', 'price' => 250, 'ts' => strtotime('-' . rand(1, 50) .' minute')],
     ['name' => 'Paul', 'price' => 280, 'ts' => strtotime('-' . rand(1, 18) .' hour')],
     ['name' => 'Catherine', 'price' => 300, 'ts' => strtotime('-' . rand(25, 50) .' hour')],
