@@ -52,11 +52,11 @@
                 <div class="history">
                     <h3>Bid history (<span>10</span>)</h3>
                     <table class="history__list">
-                        <?php foreach($bets as $value): ?>
+                        <?php foreach($Bids as $value): ?>
                         <tr class="history__item">
                             <td class="history__name"><?=$value['name']?></td>
                             <td class="history__price"><?=$value['price']?> €</td>
-                            <td class="history__time"><?=calculateTimeBets($value['ts'])?></td>
+                            <td class="history__time"><?=calculateTimeBids($value['ts'])?></td>
                         </tr>
                         <?php endforeach?>
                     </table>

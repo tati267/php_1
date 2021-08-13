@@ -1,11 +1,42 @@
 CREATE DATABASE yeticave;
 USE yeticave;
 
-CREATE TABLE Categories
-(
+
+CREATE TABLE Categories (
     CategoryID INT AUTO_INCREMENT PRIMARY KEY,
     CategoryName VARCHAR(255),
     CategoryClass VARCHAR(255)
+);
+
+CREATE TABLE Users (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    UserEmail VARCHAR(128),
+    UserPassword VARCHAR(64),
+    UserName VARCHAR(128)
+);
+
+CREATE TABLE Lots (
+    LotID INT AUTO_INCREMENT,
+    LotName VARCHAR(255),
+    LotStartPrice INT,
+    LotPrice INT,
+    LotImgUrl VARCHAR(128),
+    LotDescription VARCHAR(255),
+    LotBidsQuantity INT,
+    CategoryID INT,
+    PRIMARY KEY (LotID),
+    FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
+);
+
+CREATE TABLE Bids (
+    BidID INT AUTO_INCREMENT,
+    BidPrice INT,
+    BidDate DATE,
+    UserID INT,
+    LotID INT,
+    PRIMARY KEY (BidID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (LotID) REFERENCES Lots(LotID)
 );
 
 INSERT INTO Categories
@@ -22,8 +53,7 @@ INSERT INTO Categories
 SET CategoryName='Other', CategoryClass = 'other';
 
 
-CREATE TABLE Lots
-(
+CREATE TABLE Lots (
     LotID INT AUTO_INCREMENT PRIMARY KEY,
     LotName VARCHAR(255) NOT NULL,
     LotCategory VARCHAR(50) NOT NULL,
@@ -69,8 +99,7 @@ SET LotName ='Face Mask DRAGON DX Goggle 2021',
     LotAbout = "The DX Goggle is a timeless Dragon shape that's been upgraded to meet the demands of today's consumers. The DX checks all the boxes: 100-percent UV protection, Super Anti Fog lens treatment, and a design that guarantees seamless goggle-to-helmet fit. Those looking for a no-fuss goggle should look no further than the DX.",
     LotCategoryID = '6';
 
-CREATE TABLE Bets
-(
+CREATE TABLE Bets (
     BetID INT AUTO_INCREMENT PRIMARY KEY,
     BetPrice INT,
     BetDate DATE NOT NULL,
@@ -94,10 +123,7 @@ SET BetNameID ='4',
     BetPrice = '280',
     BetDate ="2021-08-11 06:30:10";
 
-
-
-CREATE TABLE Users
-(
+CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     UserEmail CHAR(128),
     UserPassword CHAR(64),

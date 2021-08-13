@@ -43,7 +43,7 @@
         'categories' => $categories,
         'lots' => $lot,
         'is_auth' => $is_auth,
-        'bets' => $bets,
+        'Bids' => $Bids,
     ]);
 
     $layout_content = includeTemplate('layout.php', [

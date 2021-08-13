@@ -187,9 +187,9 @@ h2 {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -270,9 +270,9 @@ h2 {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
@@ -298,9 +298,9 @@ h2 {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -354,9 +354,9 @@ h2 {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -518,9 +518,9 @@ h2 {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
 }
 
 .lots h2 {
@@ -555,9 +555,9 @@ h2 {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -606,9 +606,9 @@ h2 {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
 }
 
 .lot__amount {
@@ -804,9 +804,9 @@ h2 {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
   width: 730px;
 }
 
@@ -928,9 +928,9 @@ input:invalid .form__error{
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
 }
 
 .lot-item__left {
@@ -992,9 +992,9 @@ input:invalid .form__error{
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
 }
 
 .lot-item__amount {
@@ -1020,9 +1020,9 @@ input:invalid .form__error{
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
   margin-top: 17px;
 }
 
@@ -1075,9 +1075,9 @@ input:invalid .form__error{
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
   padding: 6px 20px;
   min-width: 310px;
   background-color: #ffffff;
@@ -1121,9 +1121,9 @@ input:invalid .form__error{
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-between;
+  -webkit-justify-content: space-Bidween;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-Bidween;
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
