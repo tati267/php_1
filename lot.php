@@ -41,7 +41,7 @@
 
     $page_content = includeTemplate('lot.php', [
         'categories' => $categories,
-        'lot' => $lot,
+        'lots' => $lot,
         'is_auth' => $is_auth,
         'Bids' => $Bids,
     ]);
