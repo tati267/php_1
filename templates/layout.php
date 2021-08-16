@@ -37,7 +37,7 @@
                 <?php else: ?>
                 <ul class="user-menu__list">
                     <li class="user-menu__item">
-                        <a href="#">Registration</a>
+                        <a href="<?='./sign-up.php'?>">Registration</a>
                     </li>
                     <li class="user-menu__item">
                         <a href="<?='./login.php'?>">Login</a>
