@@ -12,7 +12,9 @@ CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     UserEmail VARCHAR(128),
     UserPassword VARCHAR(64),
-    UserName VARCHAR(128)
+    UserImgPath VARCHAR(128),
+    UserName VARCHAR(128),
+    UserComments VARCHAR(255),
 );
 
 CREATE TABLE Lots (

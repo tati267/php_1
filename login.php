@@ -2,12 +2,14 @@
 require 'data.php';
 require 'config.php';
 require 'functions.php';
+require 'init.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
-
     $required = ['email', 'password'];
     $errors = [];
+    $user = searchUserByEmail($link, $form['email']);
+
     foreach ($form as $field => $value) {
         if ($field == 'email') {
             if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
@@ -19,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     };
 
-    if (!count($errors)&&$user = searchUserByEmail($form['email'], $users)) {
-        if (password_verify($form['password'], $user['password'])) {
+    if (!count($errors) && $user) {
+        if (password_verify($form['password'], $user['UserPassword'])) {
             $_SESSION['user'] = $user;
         }
         else {
