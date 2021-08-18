@@ -1,15 +1,23 @@
 <?php
-function searchUserByEmail($email, $users) {
+function searchUserByEmail($link, $email) {
     $result = null;
-    foreach ($users as $user) {
-        if ($user['email'] == $email) {
-            $result = $user;
-        break;
-        }
+    $email = mysqli_real_escape_string($link, $email);
+    $sql = "SELECT * FROM `users` WHERE `UserEmail` = '$email'";
+    $sql_query = mysqli_query($link, $sql);
+
+    if(!$sql_query) {
+        $errorMsg = 'Error: ' . mysqli_error($db_connection);
+        die($errorMsg);
+    }
+
+    $comparation_result = mysqli_fetch_assoc ($sql_query);
+
+    if ($comparation_result !== NULL) {
+        $result = $comparation_result;
     }
 
     return $result;
-}
+};
 
 function includeTemplate($name, $data) {
     $name = 'templates/' . $name;

@@ -3,6 +3,6 @@ $db = [
     'host' => 'localhost',
     'user' => 'root',
     'password' => 'root',
-    'database' => 'yeticav'
+    'database' => 'yeticave'
 ];
 ?>

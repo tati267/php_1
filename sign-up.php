@@ -2,16 +2,25 @@
 require 'data.php';
 require 'functions.php';
 require 'config.php';
+require 'init.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
     $user_photo = $_FILES['user-photo'];
-
     $required_fields = ['email', 'password', 'name', 'message'];
     $errors = [];
 
     foreach ($form as $field => $value) {
         if ($field == 'email') {
+            $email = mysqli_real_escape_string($link, $value);
+            $sql = "SELECT `UserEmail` FROM `Users` WHERE `UserEmail` = '$email'";
+            $sql_query = mysqli_query($link, $sql);
+            $result = mysqli_fetch_array ($sql_query);
+
+            if ($result !== NULL) {
+                $errors[$field] = 'This email is already been used';
+            }
+
             if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                 $errors[$field] = 'Email has to be correct';
             }
@@ -25,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($field === 'name') {
             if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
-                $errors['name'] = 'should contain only alphanumeric!';
+                $errors['name'] = 'Should contain only alphanumeric!';
             }
         }
 
         if ($field === 'message') {
             if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
-                $errors['message'] = 'should contain only alphanumeric!';
+                $errors['message'] = 'Should contain only alphanumeric!';
             }
         }
 
@@ -39,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors[$field] = 'Fill up this field';
         }
     }
-
     if ($_FILES['user-photo']['name']) {
         if (isset($_FILES['user-photo']['name'])) {
             $tmp_name = $user_photo['tmp_name'];
@@ -58,26 +66,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
      else {
-		$errors['file'] = 'You have not uploaded';
-	}
+        $errors['file'] = 'You have not uploaded photo';
+    }
 
-	if (count($errors)) {
-		$page_content = includeTemplate('sign-up.php', [
+    if (count($errors)) {
+        $page_content = includeTemplate('sign-up.php', [
             'categories' => $categories,
             'form' => $form,
             'errors' => $errors,
         ]);
-	}
+    }
     else {
-		$page_content = includeTemplate('index.php', [
-            'form' => $form,
-            'categories' => $categories,
-        ]);
-	}
-}
+        if (!$link) {
+            $error = mysqli_connect_error();
+            $page_content = include_template('error.php', ['error' => $error]);
+        }
+        else {
+            $password_hash = password_hash($form['password'], PASSWORD_DEFAULT);
+            $email = mysqli_real_escape_string($link, $form['email']);
+            $name = mysqli_real_escape_string($link, $form['name']);
+            $password = mysqli_real_escape_string($link, $password_hash);
+            $message = mysqli_real_escape_string($link, $form['message']);
 
+            $sql = "INSERT INTO Users (`UserEmail`, `UserName`, `UserPassword`,`UserComments`) VALUES ('$email', '$name', '$password','$message')";
+            $result = mysqli_query($link, $sql);
+
+            if ($result) {
+                $page_content = includeTemplate('index.php', []);
+            }
+            else {
+                $error = mysqli_error($link);
+                $page_content = includeTemplate('error.php', ['error' => $error]);
+            }
+        }
+    }
+}
 else {
-	$page_content = includeTemplate('sign-up.php', [
+    $page_content = includeTemplate('sign-up.php', [
         'categories' => $categories,
     ]);
 }
@@ -88,7 +113,7 @@ $layout_content = includeTemplate('layout.php', [
     'categories' => $categories,
     'user_name' => $user_name,
     'user_avatar'=>$user_avatar,
-    'title' => "Home page"
+    'title' => "Sign up"
 ]);
 
 print($layout_content);
