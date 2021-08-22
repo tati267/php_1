@@ -71,14 +71,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 
 	if (count($errors)) {
-		$page_content = includeTemplate('add.php', [
+		$page_content = include_template('add.php', [
             'categories' => $categories,
             'form' => $form,
             'errors' => $errors,
         ]);
 	}
     else {
-		$page_content = includeTemplate('lot.php', [
+		$page_content = include_template('lot.php', [
             'form' => $form,
             'categories' => $categories,
         ]);
@@ -86,12 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 else {
-	$page_content = includeTemplate('add.php', [
+	$page_content = include_template('add.php', [
         'categories' => $categories,
     ]);
 }
 
-$layout_content = includeTemplate('layout.php', [
+$layout_content = include_template('layout.php', [
     'content' => $page_content,
     'is_auth' => $is_auth,
     'categories' => $categories,

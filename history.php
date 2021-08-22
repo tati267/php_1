@@ -17,13 +17,13 @@ if (isset($_COOKIE['lot_history'])) {
     }
 }
 
-    $page_content = includeTemplate('history.php', [
+    $page_content = include_template('history.php', [
         'lots' => $lots,
         'categories' => $categories,
         'lots_history' => $lots_history
     ]);
 
-    $layout_content = includeTemplate('layout.php', [
+    $layout_content = include_template('layout.php', [
         'content' => $page_content,
         'is_auth' => $is_auth,
         'categories' => $categories,

@@ -39,14 +39,14 @@
         exit(http_response_code(404));
     }
 
-    $page_content = includeTemplate('lot.php', [
+    $page_content = include_template('lot.php', [
         'categories' => $categories,
         'lots' => $lot,
         'is_auth' => $is_auth,
         'Bids' => $Bids,
     ]);
 
-    $layout_content = includeTemplate('layout.php', [
+    $layout_content = include_template('layout.php', [
         'content' => $page_content,
         'is_auth' => $is_auth,
         'categories' => $categories,

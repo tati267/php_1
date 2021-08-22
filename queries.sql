@@ -13,25 +13,26 @@ SET CategoryName='Other', CategoryClass = 'other';
 
 
 INSERT INTO Users
-SET UserEmail ='dylan@gmail.com',
+SET UserID='1',
+UserEmail ='dylan@gmail.com',
     UserPassword = '$2y$10$OqvsKHQwr0Wk6FMZDoHo1uHoXd4UdxJG/5UDtUiie00XaxMHrW8ka',
     UserName ='Dylan',
     UserComments='',
     UserImgPath = 'img/avatar.jpg';
 INSERT INTO Users
-SET UserEmail ='kitty_93@gmail.com',
+SET UserID='2',UserEmail ='kitty_93@gmail.com',
     UserPassword = '$2y$10$bWtSjUhwgggtxrnJ7rxmIe63ABubHQs0AS0hgnOo41IEdMHkYoSVa',
     UserName ='Catherine',
     UserComments='',
     UserImgPath = 'img/avatar.jpg';
 INSERT INTO Users
-SET UserEmail ='warrior07@mail.ru',
+SET UserID='3',UserEmail ='warrior07@mail.ru',
     UserPassword = '$2y$10$2OxpEH7narYpkOT1H5cApezuzh10tZEEQ2axgFOaKW.55LxIJBgWW',
     UserName ='Warrior',
     UserComments='',
     UserImgPath = 'img/avatar.jpg';
 INSERT INTO Users
-SET UserEmail ='kitty_93@gmail.com',
+SET UserID='4',UserEmail ='kitty_93@gmail.com',
     UserPassword = '$2y$10$bWtSjUhwgggtxrnJ7rxmIe63ABubHQs0AS0hgnOo41IEdMHkYoSVa',
     UserName ='Skye',
     UserComments='',

@@ -19,7 +19,7 @@ function searchUserByEmail($link, $email) {
     return $result;
 };
 
-function includeTemplate($name, $data) {
+function include_template($name, $data) {
     $name = 'templates/' . $name;
     if(file_exists($name)) {
         ob_start();

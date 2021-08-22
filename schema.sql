@@ -12,9 +12,9 @@ CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     UserEmail VARCHAR(128),
     UserPassword VARCHAR(64),
-    UserImgPath VARCHAR(128),
     UserName VARCHAR(128),
-    UserComments VARCHAR(255),
+    UserImgPath VARCHAR(128),
+    UserComments VARCHAR(255)
 );
 
 CREATE TABLE Lots (
@@ -25,6 +25,7 @@ CREATE TABLE Lots (
     LotImgUrl VARCHAR(128),
     LotDescription VARCHAR(255),
     LotBidsQuantity INT,
+    LotDateTime DATETIME,
     CategoryID INT,
     PRIMARY KEY (LotID),
     FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)

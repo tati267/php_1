@@ -1,9 +1,26 @@
 <?php
 require ('config.php');
 require ('functions.php');
-require ('data.php');
+require ('init.php');
 
 $lot = null;
+
+if (!$link) {
+    $error = mysqli_connect_error();
+    $page_content = include_template('error.php', ['error' => $error]);
+}
+else {
+    $sql = 'SELECT `CategoryName`, `CategoryClass` FROM categories';
+    $result = mysqli_query($link, $sql);
+
+    if ($result) {
+        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+    else {
+        $error = mysqli_error($link);
+        $page_content = include_template('error.php', ['error' => $error]);
+    }
+}
 
 if (isset($_SESSION['user'])) {
     $user_name = $_SESSION['user']['name'];
@@ -24,12 +41,12 @@ if (!$lot) {
 	http_response_code(404);
 }
 
-$page_content = includeTemplate('index.php', [
+$page_content = include_template('index.php', [
     'categories' => $categories,
     'lots' => $lots,
 ]);
 
-$layout_content = includeTemplate('layout.php', [
+$layout_content = include_template('layout.php', [
     'content' => $page_content,
     'is_auth' => $is_auth,
     'categories' => $categories,
