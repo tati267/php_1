@@ -6,7 +6,7 @@ function searchUserByEmail($link, $email) {
     $sql_query = mysqli_query($link, $sql);
 
     if(!$sql_query) {
-        $errorMsg = 'Error: ' . mysqli_error($db_connection);
+        $errorMsg = 'Error: ' . mysqli_error($link_connection);
         die($errorMsg);
     }
 

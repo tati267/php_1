@@ -10,17 +10,33 @@ if (!$link) {
     $page_content = include_template('error.php', ['error' => $error]);
 }
 else {
-    $sql = 'SELECT `CategoryName`, `CategoryClass` FROM categories';
-    $result = mysqli_query($link, $sql);
+    $sqlCategories = 'SELECT `CategoryName`, `CategoryClass` FROM categories';
+    $resultCategories = mysqli_query($link, $sqlCategories);
 
-    if ($result) {
-        $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if ($resultCategories) {
+        $categories = mysqli_fetch_all($resultCategories, MYSQLI_ASSOC);
     }
     else {
         $error = mysqli_error($link);
         $page_content = include_template('error.php', ['error' => $error]);
     }
+       // request on showing 6 recent lots
+       $sql = 'SELECT *  FROM Lots as l
+       JOIN Categories AS c ON l.CategoryID=c.CategoryID
+       ORDER BY `LotID` DESC LIMIT 6';
+
+       if ($res = mysqli_query($link, $sql)) {
+       $lots = mysqli_fetch_all($res, MYSQLI_ASSOC);
+    }
+    else {
+       $page_content = include_template('error.php', ['error' => mysqli_error($link)]);
+    }
+    $page_content = include_template('index.php', [
+        'categories' => $categories,
+        'lots' => $lots,
+    ]);
 }
+/*
 
 if (isset($_SESSION['user'])) {
     $user_name = $_SESSION['user']['name'];
@@ -40,11 +56,7 @@ if (isset($_GET['lot_id'])) {
 if (!$lot) {
 	http_response_code(404);
 }
-
-$page_content = include_template('index.php', [
-    'categories' => $categories,
-    'lots' => $lots,
-]);
+*/
 
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
