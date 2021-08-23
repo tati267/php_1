@@ -3,7 +3,7 @@
     <p class="promo__text">On our auction you will find exclusive equipment for snowboarding and skiing!</p>
     <ul class="promo__list">
         <?php foreach($categories as $value): ?>
-        <li class="promo__item promo__item--'<?=$value['CategoryClass']?>'">
+        <li class="promo__item promo__item--<?=$value['CategoryClass']?>">
             <a class="promo__link" href="all-lots.html"><?=$value['CategoryName']?></a>
         </li>
         <?php endforeach; ?>
