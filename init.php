@@ -1,13 +1,13 @@
 <?php
 require_once 'functions.php';
-$link = [
+$db = [
     'host' => 'localhost',
     'user' => 'root',
     'password' => '',
     'database' => 'yeticave'
 ];
 
-$link = mysqli_connect($link['host'], $link['user'],$link['password'], $link['database']);
+$link = mysqli_connect($db['host'], $db['user'],$db['password'], $db['database']);
 mysqli_set_charset($link, 'utf8');
 
 $categories = [];

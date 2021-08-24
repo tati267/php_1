@@ -108,7 +108,7 @@ SELECT CategoryName FROM Categories
 
 --Get 6 new open lots
 SELECT * FROM Lots
-ORDER BY LotID DESC LIMIT 6;
+ORDER BY LotDateTime DESC LIMIT 6;
 
 --Get combined table Lots+Categories about particular lot id
 SELECT l.LotID,l.LotName, l.LotPrice, l.LotStartPrice, l.LotImgUrl, l.LotDescription, c.CategoryName

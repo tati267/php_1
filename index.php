@@ -20,10 +20,10 @@ else {
         $error = mysqli_error($link);
         $page_content = include_template('error.php', ['error' => $error]);
     }
-       // request on showing 6 recent lots
+       // request on showing 9 recent lots
        $sql = 'SELECT *  FROM Lots as l
        JOIN Categories AS c ON l.CategoryID=c.CategoryID
-       ORDER BY `LotID` DESC LIMIT 6';
+       ORDER BY `LotDateTime` DESC LIMIT 9';
 
        if ($res = mysqli_query($link, $sql)) {
        $lots = mysqli_fetch_all($res, MYSQLI_ASSOC);
