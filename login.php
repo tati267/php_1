@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (count($errors)) {
-        $page_content = includeTemplate('login.php', [
+        $page_content = include_template('login.php', [
             'categories' => $categories,
             'form' => $form,
             'errors' => $errors
@@ -47,19 +47,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 else {
     if (isset($_SESSION['user'])) {
-        $page_content = includeTemplate('index.php', [
+        $page_content = include_template('index.php', [
             'lots' => $lots,
             'categories' => $categories,
         ]);
     }
     else {
-        $page_content = includeTemplate('login.php', [
+        $page_content = include_template('login.php', [
             'categories' => $categories,
         ]);
     }
 }
 
-$layout_content = includeTemplate('layout.php', [
+$layout_content = include_template('layout.php', [
     'content' => $page_content,
     'is_auth' => $is_auth,
     'categories' => $categories,

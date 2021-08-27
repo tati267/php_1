@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (count($errors)) {
-        $page_content = includeTemplate('sign-up.php', [
+        $page_content = include_template('sign-up.php', [
             'categories' => $categories,
             'form' => $form,
             'errors' => $errors,
@@ -92,22 +92,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result = mysqli_query($link, $sql);
 
             if ($result) {
-                $page_content = includeTemplate('index.php', []);
+                $page_content = include_template('index.php', []);
             }
             else {
                 $error = mysqli_error($link);
-                $page_content = includeTemplate('error.php', ['error' => $error]);
+                $page_content = include_template('error.php', ['error' => $error]);
             }
         }
     }
 }
 else {
-    $page_content = includeTemplate('sign-up.php', [
+    $page_content = include_template('sign-up.php', [
         'categories' => $categories,
     ]);
 }
 
-$layout_content = includeTemplate('layout.php', [
+$layout_content = include_template('layout.php', [
     'content' => $page_content,
     'is_auth' => $is_auth,
     'categories' => $categories,

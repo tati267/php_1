@@ -1,5 +1,5 @@
 <?php
-$db = [
+$link = [
     'host' => 'localhost',
     'user' => 'root',
     'password' => 'root',
