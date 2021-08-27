@@ -34,7 +34,7 @@ CREATE TABLE Lots (
 CREATE TABLE Bids (
     BidID INT AUTO_INCREMENT,
     BidPrice INT,
-    BidDate DATE,
+    BidDateTime DATETIME,
     UserID INT,
     LotID INT,
     PRIMARY KEY (BidID),

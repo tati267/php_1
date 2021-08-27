@@ -52,7 +52,8 @@ function calculateTimer() {
     print($hours.':'.$min);
 }
 
-function calculateTimeBids($ts) {
+function calculate_TimeBids($date) {
+    $ts=strtotime($date);
     $time_diff = $_SERVER['REQUEST_TIME'] - $ts;
     if ($time_diff > 86400) { // difference is more than 24h
         $time_return = date('d.m.Y H:i', $ts);

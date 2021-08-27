@@ -44,15 +44,17 @@
                 </div>
                 <div class="history">
                     <h3>Bid history <?= $bidsQuantity ?></h3>
+                    <?php if ($bidsQuantity>0): ?>
                     <table class="history__list">
                         <?php foreach($bids as $key => $value): ?>
                         <tr class="history__item">
                             <td class="history__name"><?=$value['UserName']?></td>
                             <td class="history__price"><?=$value['BidPrice']?> €</td>
-                            <td class="history__time"><?=$value['BidDate']?></td>
+                            <td class="history__time"><?=calculate_TimeBids($value['BidDate'])?></td>
                         </tr>
                         <?php endforeach?>
                     </table>
+                    <?php endif?>
                 </div>
             </div>
         </div>

@@ -3,12 +3,10 @@
     require 'config.php';
     require 'init.php';
 
-    $lot = null;
     $cookie_name = 'lot_history';
-    $lot_indices = [];
+    $cookie_value = [];
     $cookie_expire = strtotime("+30 days");
-    $cookie_path = "/";
-    $lot_id = $_GET['id'] ? intval($_GET['id']) : null;
+    $lot_id = $_GET['lot_id'];
 
     if (!$link) {
         $error = mysqli_connect_error();
@@ -37,9 +35,19 @@
             $page_content = include_template('error.php', ['error' => mysqli_error($link)]);
         }
 
+        $sqlBidsQuantity= "SELECT * FROM bids
+        WHERE LotID = '$lot_id'";
+
+        if ($res = mysqli_query($link, $sqlBidsQuantity)) {
+            $bidsQuantity = mysqli_num_rows($res);
+        }
+        else {
+            $page_content = include_template('error.php', ['error' => mysqli_error($link)]);
+        }
+
         $sqlBids= "SELECT * FROM Bids as b
         JOIN Users AS u ON b.UserID=u.UserID
-        WHERE b.LotID = '1'
+        WHERE b.LotID = '$lot_id'
         ORDER BY BidPrice DESC";
 
         if ($res = mysqli_query($link, $sqlBids )) {
@@ -53,11 +61,10 @@
             'categories' => $categories,
             'lots' => $lots,
             'bids' => $bids,
+            'bidsQuantity' => $bidsQuantity
         ]);
 
         if (isset($_GET['lot_id'])) {
-            $lot_id = $_GET['lot_id'];
-
             foreach ($lots as $key => $value) {
                 if ($key == $lot_id) {
                     $lot = $value;
@@ -66,19 +73,14 @@
             }
 
             if (isset($_COOKIE['lot_history'])) {
-                $lot_indices = unserialize($_COOKIE['lot_history']);
-
-                if (!in_array($lot_id, $lot_indices)) {
-                    $lot_indices[] = $lot_id;
-                }
-
-                $cookie_value = serialize($lot_indices);
-                setcookie($cookie_name , $cookie_value, $cookie_expire, $cookie_path);
-            } else {
-                $lot_indices[] = $lot_id;
-                $cookie_value = serialize($lot_indices);
-                setcookie($cookie_name , $cookie_value, $cookie_expire, $cookie_path);
+                $cookie_value = json_decode($_COOKIE['lot_history'], true);
             }
+
+            if (!in_array($lot_id, $cookie_value)) {
+                $cookie_value[] = $lot_id;
+            }
+
+            setcookie($cookie_name, json_encode($cookie_value), $cookie_expire);
         }
 
         if (!$lot) {
@@ -92,6 +94,7 @@
         'lots' => $lot,
         'is_auth' => $is_auth,
         'bids' => $bids,
+        'bidsQuantity' => $bidsQuantity
     ]);
 
     $layout_content = include_template('layout.php', [
