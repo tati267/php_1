@@ -20,7 +20,7 @@ CREATE TABLE Users (
 CREATE TABLE Lots (
     LotID INT AUTO_INCREMENT,
     LotName VARCHAR(255),
-    LotStartPrice INT,
+    LotStepBid INT,
     LotPrice INT,
     LotImgUrl VARCHAR(128),
     LotDescription VARCHAR(255),
@@ -34,7 +34,7 @@ CREATE TABLE Lots (
 CREATE TABLE Bids (
     BidID INT AUTO_INCREMENT,
     BidPrice INT,
-    BidDate DATE,
+    BidDateTime DATETIME,
     UserID INT,
     LotID INT,
     PRIMARY KEY (BidID),

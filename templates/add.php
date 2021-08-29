@@ -2,7 +2,7 @@
 $lot_name = $form['lot-name'] ?? '';
 $category = $form['category'] ?? 'Select category';
 $message  = $form['message']  ?? '';
-$lot_rate = $form['lot-rate'] ?? '';
+$lot_price = $form['lot-price'] ?? '';
 $lot_step = $form['lot-step'] ?? '';
 $lot_date = $form['lot-date'] ?? '';
 ?>
@@ -12,7 +12,7 @@ $lot_date = $form['lot-date'] ?? '';
         <ul class="nav__list container">
             <?php foreach($categories as $key => $value): ?>
             <li class="nav__item">
-                <a href="all-lots.html"><?=$value['category']?></a>
+                <a href="all-lots.html"><?=$value['CategoryName']?></a>
             </li>
             <?php endforeach?>
         </ul>
@@ -33,7 +33,7 @@ $lot_date = $form['lot-date'] ?? '';
                 <select id="category" name="category" required>
                     <option selected>Select category</option>
                     <?php foreach($categories as $key => $value): ?>
-                    <option><?=$value['category']?></option>
+                    <option><?=$value['CategoryName']?></option>
                     <?php endforeach?>
                 </select>
                 <span class="form__error"><?= $errors['category'] ?? '' ?></span>
@@ -63,10 +63,10 @@ $lot_date = $form['lot-date'] ?? '';
             </div>
         </div>
         <div class="form__container-three">
-            <div class="form__item form__item--small <?= isset($errors['lot-rate']) ? 'form__item--invalid' : '' ?>">
-                <label for="lot-rate">Start bid</label>
-                <input id="lot-rate" type="number" name="lot-rate" placeholder="0" value="<?= $lot_rate ?>" />
-                <span class="form__error"><?= $errors['lot-rate'] ?? '' ?></span>
+            <div class="form__item form__item--small <?= isset($errors['lot-price']) ? 'form__item--invalid' : '' ?>">
+                <label for="lot-price">Start price</label>
+                <input id="lot-price" type="number" name="lot-price" placeholder="0" value="<?= $lot-price ?>" />
+                <span class="form__error"><?= $errors['lot-price'] ?? '' ?></span>
             </div>
             <div class="form__item form__item--small <?= isset($errors['lot-step']) ? 'form__item--invalid' : '' ?>">
                 <label for="lot-step">Bid step</label>

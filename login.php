@@ -1,8 +1,24 @@
 <?php
-require 'data.php';
 require 'config.php';
 require 'functions.php';
 require 'init.php';
+
+if (!$link) {
+    $error = mysqli_connect_error();
+    $page_content = include_template('error.php', ['error' => $error]);
+}
+else {
+    $sqlCategories = 'SELECT `CategoryName`, `CategoryClass` FROM categories';
+    $resultCategories = mysqli_query($link, $sqlCategories);
+
+    if ($resultCategories) {
+        $categories = mysqli_fetch_all($resultCategories, MYSQLI_ASSOC);
+    }
+    else {
+        $error = mysqli_error($link);
+        $page_content = include_template('error.php', ['error' => $error]);
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;

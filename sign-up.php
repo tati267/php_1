@@ -1,53 +1,30 @@
 <?php
-require 'data.php';
 require 'functions.php';
 require 'config.php';
 require 'init.php';
 
+if (!$link) {
+    $error = mysqli_connect_error();
+    $page_content = include_template('error.php', ['error' => $error]);
+}
+else {
+    $sqlCategories = 'SELECT `CategoryName`, `CategoryClass` FROM categories';
+    $resultCategories = mysqli_query($link, $sqlCategories);
+
+    if ($resultCategories) {
+        $categories = mysqli_fetch_all($resultCategories, MYSQLI_ASSOC);
+    }
+    else {
+        $error = mysqli_error($link);
+        $page_content = include_template('error.php', ['error' => $error]);
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
     $user_photo = $_FILES['user-photo'];
-    $required_fields = ['email', 'password', 'name', 'message'];
-    $errors = [];
+    $errors=validate_form_sign_up($form);
 
-    foreach ($form as $field => $value) {
-        if ($field == 'email') {
-            $email = mysqli_real_escape_string($link, $value);
-            $sql = "SELECT `UserEmail` FROM `Users` WHERE `UserEmail` = '$email'";
-            $sql_query = mysqli_query($link, $sql);
-            $result = mysqli_fetch_array ($sql_query);
-
-            if ($result !== NULL) {
-                $errors[$field] = 'This email is already been used';
-            }
-
-            if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                $errors[$field] = 'Email has to be correct';
-            }
-        }
-
-        if ($field=== 'password') {
-            if (!preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/', $value)) {
-                $errors['password'] = 'Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters';
-            }
-        }
-
-        if ($field === 'name') {
-            if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
-                $errors['name'] = 'Should contain only alphanumeric!';
-            }
-        }
-
-        if ($field === 'message') {
-            if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
-                $errors['message'] = 'Should contain only alphanumeric!';
-            }
-        }
-
-        if (empty($value)) {
-            $errors[$field] = 'Fill up this field';
-        }
-    }
     if ($_FILES['user-photo']['name']) {
         if (isset($_FILES['user-photo']['name'])) {
             $tmp_name = $user_photo['tmp_name'];
@@ -69,36 +46,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['file'] = 'You have not uploaded photo';
     }
 
-    if (count($errors)) {
+    if (empty($errors)) {
+        $password_hash = password_hash($form['password'], PASSWORD_DEFAULT);
+        $email = mysqli_real_escape_string($link, $form['email']);
+        $name = mysqli_real_escape_string($link, $form['name']);
+        $password = mysqli_real_escape_string($link, $password_hash);
+        $message = mysqli_real_escape_string($link, $form['message']);
+
+        $sql = "INSERT INTO Users (`UserEmail`, `UserName`, `UserPassword`,`UserComments`) VALUES ('$email', '$name', '$password','$message')";
+        $result = mysqli_query($link, $sql);
+
+        if ($result) {
+            $page_content = include_template('index.php', [
+            ]);
+        }
+    }
+    else {
         $page_content = include_template('sign-up.php', [
             'categories' => $categories,
             'form' => $form,
             'errors' => $errors,
         ]);
-    }
-    else {
-        if (!$link) {
-            $error = mysqli_connect_error();
-            $page_content = include_template('error.php', ['error' => $error]);
-        }
-        else {
-            $password_hash = password_hash($form['password'], PASSWORD_DEFAULT);
-            $email = mysqli_real_escape_string($link, $form['email']);
-            $name = mysqli_real_escape_string($link, $form['name']);
-            $password = mysqli_real_escape_string($link, $password_hash);
-            $message = mysqli_real_escape_string($link, $form['message']);
-
-            $sql = "INSERT INTO Users (`UserEmail`, `UserName`, `UserPassword`,`UserComments`) VALUES ('$email', '$name', '$password','$message')";
-            $result = mysqli_query($link, $sql);
-
-            if ($result) {
-                $page_content = include_template('index.php', []);
-            }
-            else {
-                $error = mysqli_error($link);
-                $page_content = include_template('error.php', ['error' => $error]);
-            }
-        }
     }
 }
 else {
