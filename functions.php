@@ -66,4 +66,116 @@ function calculate_TimeBids($date) {
     }
     return $time_return;
 }
+
+function search_id_by_category($link, $category) {
+    $sqlCategory = "SELECT CategoryID FROM categories WHERE `CategoryName` = '$category'";
+    $category_id = mysqli_query($link, $sqlCategory);
+
+    if(!$category_id) {
+        $errorMsg = 'Error: ' . mysqli_error($db_connection);
+        die($errorMsg);
+    }
+
+    $id = mysqli_fetch_assoc($category_id)['CategoryID'];
+
+    return $id;
+}
+
+function search_id_by_user($link, $user_name) {
+    $sqlUser = "SELECT UserID FROM users WHERE `UserName` = '$user_name'";
+    $user_id = mysqli_query($link, $sqlUser);
+
+    if(!$user_id) {
+        $errorMsg = 'Error: ' . mysqli_error($db_connection);
+        die($errorMsg);
+    }
+
+    $id = mysqli_fetch_assoc($user_id)['UserID'];
+
+    return $id;
+}
+
+function validate_form_sign_up($form) {
+    require 'init.php';
+    $errors = [];
+    foreach ($form as $field => $value) {
+        if ($field == 'email') {
+            $email = mysqli_real_escape_string($link, $value);
+            $sql = "SELECT `UserEmail` FROM `Users` WHERE `UserEmail` = '$email'";
+            $sql_query = mysqli_query($link, $sql);
+            $result = mysqli_fetch_array ($sql_query);
+
+            if ($result !== NULL) {
+                $errors[$field] = 'This email is already been used';
+            }
+
+            if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                $errors[$field] = 'Email has to be correct';
+            }
+        }
+
+        if ($field=== 'password') {
+            if (!preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/', $value)) {
+                $errors['password'] = 'Must contain at least one number and one uppercase and lowercase letter, and at least 5 or more characters';
+            }
+        }
+
+        if ($field === 'name') {
+            if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
+                $errors['name'] = 'Should contain only alphanumeric!';
+            }
+        }
+
+        if ($field === 'message') {
+            if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
+                $errors['message'] = 'Should contain only alphanumeric!';
+            }
+        }
+
+        if (empty($value)) {
+            $errors[$field] = 'Fill up this field';
+        }
+    }
+    return $errors;
+}
+
+function validate_form_add($form) {
+    $errors = [];
+
+    foreach ($form as $field => $value) {
+        if ($field=== 'category') {
+            if($value==='Select category') {
+                $errors['category'] = 'Choose category';
+            }
+        }
+
+        if ($field=== 'lot-price') {
+            if(!filter_var($value, FILTER_VALIDATE_INT)) {
+                $errors['lot-price'] = 'Insert integer';
+            }
+        }
+
+        if ($field === 'lot-step') {
+            if(!filter_var($value, FILTER_VALIDATE_INT)) {
+                $errors['lot-step'] = 'Insert integer';
+            }
+        }
+
+        if ($field === 'lot-name') {
+            if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
+                $errors['lot-name'] = 'should contain only alphanumeric!';
+            }
+        }
+
+        if ($field === 'message') {
+            if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
+                $errors['message'] = 'should contain only alphanumeric!';
+            }
+        }
+        if (empty($value)) {
+            $errors[$field] = 'Fill up this field';
+        }
+    }
+    return $errors;
+}
 ?>

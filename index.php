@@ -36,10 +36,10 @@ else {
         'lots' => $lots,
     ]);
 }
-/*
+
 
 if (isset($_SESSION['user'])) {
-    $user_name = $_SESSION['user']['name'];
+    $user_name = $_SESSION['user']['UserName'];
 }
 
 if (isset($_GET['lot_id'])) {
@@ -56,7 +56,7 @@ if (isset($_GET['lot_id'])) {
 if (!$lot) {
 	http_response_code(404);
 }
-*/
+
 
 $layout_content = include_template('layout.php', [
     'content' => $page_content,

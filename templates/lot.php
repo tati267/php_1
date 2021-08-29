@@ -29,14 +29,16 @@
                             <span class="lot-item__cost"><?= $lots['LotPrice'] .' €'?></span>
                         </div>
                         <div class="lot-item__min-cost">
-                            Min bid <span><?= $lots['LotStartPrice'] ?> €</span>
+                            Min bid <span><?= $lots['LotPrice'] + $lots['LotStepBid']?> €</span>
                         </div>
                     </div>
                     <?php if ($is_auth): ?>
-                    <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
+                    <form class="lot-item__form" action="lot.php" method="post">
                         <p class="lot-item__form-item">
                             <label for="cost">Your bid</label>
-                            <input id="cost" type="number" name="cost" placeholder="><?= $lots['LotStartPrice'] ?>">
+                            <input id="cost" type="number" name="cost"
+                                min="<?= $lots['LotPrice'] + $lots['LotStepBid']?>"
+                                placeholder="<?= $lots['LotPrice'] + $lots['LotStepBid']?>">
                         </p>
                         <button type="submit" class="button">Make bid</button>
                     </form>
@@ -58,5 +60,5 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section ection>
 </main>

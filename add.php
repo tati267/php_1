@@ -2,52 +2,32 @@
 require 'data.php';
 require 'functions.php';
 require 'config.php';
+require 'init.php';
 
-if (!$is_auth) {
-    exit(http_response_code(404));
+$datetime = '';
+
+if (!$link) {
+    $error = mysqli_connect_error();
+    $page_content = include_template('error.php', ['error' => $error]);
+}
+else {
+    $sqlCategories = 'SELECT `CategoryName`, `CategoryClass` FROM categories';
+    $resultCategories = mysqli_query($link, $sqlCategories);
+
+    if ($resultCategories) {
+        $categories = mysqli_fetch_all($resultCategories, MYSQLI_ASSOC);
+    }
+    else {
+        $error = mysqli_error($link);
+        $page_content = include_template('error.php', ['error' => $error]);
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
     $lot_photo = $_FILES['lot-photo'];
-
-    $required_fields = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
-    $errors = [];
-
-    foreach ($form as $field => $value) {
-        if ($field=== 'category') {
-            if($value==='Select category') {
-                $errors['category'] = 'Choose category';
-            }
-        }
-
-        if ($field=== 'lot-rate') {
-            if(!filter_var($value, FILTER_VALIDATE_INT)) {
-                $errors['lot-rate'] = 'Insert integer';
-            }
-        }
-
-        if ($field === 'lot-step') {
-            if(!filter_var($value, FILTER_VALIDATE_INT)) {
-                $errors['lot-step'] = 'Insert integer';
-            }
-        }
-
-        if ($field === 'lot-name') {
-            if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
-                $errors['lot-name'] = 'should contain only alphanumeric!';
-            }
-        }
-
-        if ($field === 'message') {
-            if (!preg_match('/^[a-zA-Z0-9-_]+$/', $value)) {
-                $errors['message'] = 'should contain only alphanumeric!';
-            }
-        }
-        if (empty($value)) {
-            $errors[$field] = 'Fill up this field';
-        }
-    }
+    $datetime = date("h:i:sa");
+    $errors=validate_form_add($form);
 
     if ($_FILES['lot-photo']['name']) {
         if (isset($_FILES['lot-photo']['name'])) {
@@ -76,15 +56,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'form' => $form,
             'errors' => $errors,
         ]);
-	}
-    else {
-		$page_content = include_template('lot.php', [
-            'form' => $form,
-            'categories' => $categories,
-        ]);
-	}
-}
+	} else {
+        $lot_name = mysqli_real_escape_string($link, $form['lot-name']);
+        $category_id = search_id_by_category($link, $form['category']);
+        $description = mysqli_real_escape_string($link, $form['message']);
+        $lot_price= mysqli_real_escape_string($link, $form['lot-price']);
+        $lot_step = mysqli_real_escape_string($link, $form['lot-step']);
+        $path = mysqli_real_escape_string($link, $form['path']);
+        $sqlNewLot = "INSERT INTO lots (`LotName`, `LotStepBid`, `LotPrice`,`LotImgUrl`, `LotDescription`,`CategoryID`, `LotDateTime`)
+                VALUES ('$lot_name', '$lot_step', '$lot_price','./img/$path', '$description','$category_id', NOW())";
+        $resultNewLot = mysqli_query($link, $sqlNewLot);
 
+        if ($resultNewLot) {
+             // request on showing 9 recent lots
+            $sqlLots = 'SELECT *  FROM Lots as l
+            JOIN Categories AS c ON l.CategoryID=c.CategoryID
+            ORDER BY `LotDateTime` DESC LIMIT 9';
+
+            if ($res = mysqli_query($link, $sqlLots)) {
+                $lots = mysqli_fetch_all($res, MYSQLI_ASSOC);
+            }
+            else {
+                $page_content = include_template('error.php', ['error' => mysqli_error($link)]);
+            }
+            $page_content = include_template('index.php', [
+                'categories' => $categories,
+                'lots' => $lots,
+            ]);
+        }
+        else {
+            $error = mysqli_error($link);
+            $page_content = include_template('error.php', ['error' => $error]);
+        }
+    }
+}
 else {
 	$page_content = include_template('add.php', [
         'categories' => $categories,

@@ -20,7 +20,7 @@ CREATE TABLE Users (
 CREATE TABLE Lots (
     LotID INT AUTO_INCREMENT,
     LotName VARCHAR(255),
-    LotStartPrice INT,
+    LotStepBid INT,
     LotPrice INT,
     LotImgUrl VARCHAR(128),
     LotDescription VARCHAR(255),
