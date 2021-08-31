@@ -72,7 +72,7 @@ function search_id_by_category($link, $category) {
     $category_id = mysqli_query($link, $sqlCategory);
 
     if(!$category_id) {
-        $errorMsg = 'Error: ' . mysqli_error($db_connection);
+        $errorMsg = 'Error: ' . mysqli_error($link);
         die($errorMsg);
     }
 
@@ -86,11 +86,25 @@ function search_id_by_user($link, $user_name) {
     $user_id = mysqli_query($link, $sqlUser);
 
     if(!$user_id) {
-        $errorMsg = 'Error: ' . mysqli_error($db_connection);
+        $errorMsg = 'Error: ' . mysqli_error($link);
         die($errorMsg);
     }
 
     $id = mysqli_fetch_assoc($user_id)['UserID'];
+
+    return $id;
+}
+
+function search_id_by_lot($link, $lot) {
+    $sqlLot = "SELECT LotID FROM lots WHERE `LotName` = '$lot'";
+    $lot_id = mysqli_query($link, $sqlLot);
+
+    if(!$lot_id) {
+        $errorMsg = 'Error: ' . mysqli_error($link);
+        die($errorMsg);
+    }
+
+    $id = mysqli_fetch_assoc($lot_id)['LotID'];
 
     return $id;
 }
