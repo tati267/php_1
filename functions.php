@@ -58,7 +58,7 @@ function calculate_TimeBids($date) {
     if ($time_diff > 86400) { // difference is more than 24h
         $time_return = date('d.m.Y H:i', $ts);
     }
-    else if ($time_diff > 3600) { // difference Bidween 1h-24h
+    else if ($time_diff > 3600) { // difference between 1h-24h
         $time_return = date('G', $ts) . ' hours ago';
     }
     else { // less than 1h
