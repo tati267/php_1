@@ -52,7 +52,7 @@
                         <tr class="history__item">
                             <td class="history__name"><?=$value['UserName']?></td>
                             <td class="history__price"><?=$value['BidPrice']?> €</td>
-                            <td class="history__time"><?=calculate_TimeBids($value['BidDate'])?></td>
+                            <td class="history__time"><?=calculate_TimeBids($value['BidDateTime'])?></td>
                         </tr>
                         <?php endforeach?>
                     </table>
