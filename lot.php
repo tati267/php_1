@@ -2,6 +2,7 @@
 require 'functions.php';
 require 'config.php';
 require 'init.php';
+require 'nav.php';
 
 $lot = null;
 $cookie_name = 'lot_history';
@@ -14,16 +15,10 @@ if (!$link) {
     $error = mysqli_connect_error();
      $page_content = include_template('error.php', ['error' => $error]);
 } else {
-    $sqlCategories = 'SELECT `CategoryName`, `CategoryClass` FROM categories';
-    $resultCategories = mysqli_query($link, $sqlCategories);
-
+    //set up all lots
     $sqlLots = 'SELECT *  FROM Lots as l
     JOIN Categories AS c ON l.CategoryID=c.CategoryID
     ORDER BY `LotDateTime` DESC LIMIT 9';
-
-    if ($resultCategories) {
-        $categories = mysqli_fetch_all($resultCategories, MYSQLI_ASSOC);
-    }
 
     if ($res = mysqli_query($link, $sqlLots)) {
         $lots = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -55,8 +50,6 @@ if (!$link) {
     }
 
     if (isset($_GET['lot_id'])) {
-        $lot_id = $_GET['lot_id'];
-
         foreach ($lots as $key => $value) {
             if ($key == $lot_id) {
                 $lot = $value;
@@ -101,13 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $resultNewLot = mysqli_query($link, $sqlNewLot);
 
         if ($resultNewLot) {
-            $page_content = include_template('lot.php', [
-                'categories' => $categories,
-                'lots' => $lot,
-                'is_auth' => $is_auth,
-                'bids' => $bids,
-                'bidsQuantity' => $bidsQuantity
-            ]);
+
         }
         else {
             $error = mysqli_error($link);
@@ -118,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $page_content = include_template('lot.php', [
     'categories' => $categories,
-    'lots' => $lot,
+    'lot' => $lot,
     'is_auth' => $is_auth,
     'bids' => $bids,
     'bidsQuantity' => $bidsQuantity

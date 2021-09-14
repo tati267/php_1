@@ -1,4 +1,21 @@
 <?php
+/**
+ * Преобразует специмволы в HTML-сущности.
+ *
+ * @param array $post Данный из формы.
+ *
+ * @return array Ассоциативный массив с преобразуемыми спецсимволами.
+ */
+function esc_array($post) {
+    $array = [];
+
+    foreach ($post as $field => $value) {
+        $array[$field] = htmlspecialchars($value);
+    }
+
+    return $array;
+}
+
 function searchUserByEmail($link, $email) {
     $result = null;
     $email = mysqli_real_escape_string($link, $email);
