@@ -24,7 +24,6 @@ CREATE TABLE Lots (
     LotPrice INT,
     LotImgUrl VARCHAR(128),
     LotDescription VARCHAR(255),
-    LotBidsQuantity INT,
     LotDateTime DATETIME,
     CategoryID INT,
     PRIMARY KEY (LotID),

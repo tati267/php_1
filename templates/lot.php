@@ -9,14 +9,14 @@
         </ul>
     </nav>
     <section class="lot-item container">
-        <h2><?= $lots['LotName'] ?></h2>
+        <h2><?= $lot['LotName'] ?></h2>
         <div class="lot-item__content">
             <div class="lot-item__left">
                 <div class="lot-item__image">
-                    <img src="<?='./'.$lots['LotImgUrl'] ?>" width="730" height="548" alt="<?= $lots['LotName'] ?>">
+                    <img src="<?='./'.$lot['LotImgUrl'] ?>" width="730" height="548" alt="<?= $lot['LotName'] ?>">
                 </div>
-                <p class="lot-item__category">Category: <span><?= $lots['CategoryName'] ?></span></p>
-                <p class="lot-item__description"><?= $lots['LotDescription'] ?></p>
+                <p class="lot-item__category">Category: <span><?= $lot['CategoryName'] ?></span></p>
+                <p class="lot-item__description"><?= $lot['LotDescription'] ?></p>
             </div>
             <div class="lot-item__right">
                 <div class="lot-item__state">
@@ -26,10 +26,10 @@
                     <div class="lot-item__cost-state">
                         <div class="lot-item__rate">
                             <span class="lot-item__amount">Current price</span>
-                            <span class="lot-item__cost"><?= $lots['LotPrice'] .' €'?></span>
+                            <span class="lot-item__cost"><?= $lot['LotPrice'] .' €'?></span>
                         </div>
                         <div class="lot-item__min-cost">
-                            Min bid <span><?= $lots['LotPrice'] + $lots['LotStepBid']?> €</span>
+                            Min bid <span><?= $lot['LotPrice'] + $lot['LotStepBid']?> €</span>
                         </div>
                     </div>
                     <?php if ($is_auth): ?>
@@ -37,8 +37,8 @@
                         <p class="lot-item__form-item">
                             <label for="cost">Your bid</label>
                             <input id="cost" type="number" name="cost"
-                                min="<?= $lots['LotPrice'] + $lots['LotStepBid']?>"
-                                placeholder="<?= $lots['LotPrice'] + $lots['LotStepBid']?>">
+                                min="<?= $lot['LotPrice'] + $lots['LotStepBid']?>"
+                                placeholder="<?= $lot['LotPrice'] + $lot['LotStepBid']?>">
                         </p>
                         <button type="submit" class="button">Make bid</button>
                     </form>
@@ -52,7 +52,7 @@
                         <tr class="history__item">
                             <td class="history__name"><?=$value['UserName']?></td>
                             <td class="history__price"><?=$value['BidPrice']?> €</td>
-                            <td class="history__time"><?=calculate_TimeBids($value['BidDate'])?></td>
+                            <td class="history__time"><?=calculate_TimeBids($value['BidDateTime'])?></td>
                         </tr>
                         <?php endforeach?>
                     </table>

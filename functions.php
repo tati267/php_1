@@ -1,4 +1,21 @@
 <?php
+/**
+ * Преобразует специмволы в HTML-сущности.
+ *
+ * @param array $post Данный из формы.
+ *
+ * @return array Ассоциативный массив с преобразуемыми спецсимволами.
+ */
+function esc_array($post) {
+    $array = [];
+
+    foreach ($post as $field => $value) {
+        $array[$field] = htmlspecialchars($value);
+    }
+
+    return $array;
+}
+
 function searchUserByEmail($link, $email) {
     $result = null;
     $email = mysqli_real_escape_string($link, $email);
@@ -58,7 +75,7 @@ function calculate_TimeBids($date) {
     if ($time_diff > 86400) { // difference is more than 24h
         $time_return = date('d.m.Y H:i', $ts);
     }
-    else if ($time_diff > 3600) { // difference Bidween 1h-24h
+    else if ($time_diff > 3600) { // difference between 1h-24h
         $time_return = date('G', $ts) . ' hours ago';
     }
     else { // less than 1h
@@ -72,7 +89,7 @@ function search_id_by_category($link, $category) {
     $category_id = mysqli_query($link, $sqlCategory);
 
     if(!$category_id) {
-        $errorMsg = 'Error: ' . mysqli_error($db_connection);
+        $errorMsg = 'Error: ' . mysqli_error($link);
         die($errorMsg);
     }
 
@@ -86,11 +103,25 @@ function search_id_by_user($link, $user_name) {
     $user_id = mysqli_query($link, $sqlUser);
 
     if(!$user_id) {
-        $errorMsg = 'Error: ' . mysqli_error($db_connection);
+        $errorMsg = 'Error: ' . mysqli_error($link);
         die($errorMsg);
     }
 
     $id = mysqli_fetch_assoc($user_id)['UserID'];
+
+    return $id;
+}
+
+function search_id_by_lot($link, $lot) {
+    $sqlLot = "SELECT LotID FROM lots WHERE `LotName` = '$lot'";
+    $lot_id = mysqli_query($link, $sqlLot);
+
+    if(!$lot_id) {
+        $errorMsg = 'Error: ' . mysqli_error($link);
+        die($errorMsg);
+    }
+
+    $id = mysqli_fetch_assoc($lot_id)['LotID'];
 
     return $id;
 }

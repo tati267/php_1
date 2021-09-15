@@ -2,23 +2,7 @@
 require 'functions.php';
 require 'config.php';
 require 'init.php';
-
-if (!$link) {
-    $error = mysqli_connect_error();
-    $page_content = include_template('error.php', ['error' => $error]);
-}
-else {
-    $sqlCategories = 'SELECT `CategoryName`, `CategoryClass` FROM categories';
-    $resultCategories = mysqli_query($link, $sqlCategories);
-
-    if ($resultCategories) {
-        $categories = mysqli_fetch_all($resultCategories, MYSQLI_ASSOC);
-    }
-    else {
-        $error = mysqli_error($link);
-        $page_content = include_template('error.php', ['error' => $error]);
-    }
-}
+require 'nav.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $form = $_POST;
@@ -51,14 +35,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = mysqli_real_escape_string($link, $form['email']);
         $name = mysqli_real_escape_string($link, $form['name']);
         $password = mysqli_real_escape_string($link, $password_hash);
+        $path = mysqli_real_escape_string($link, 'img/'.$form['path']);
         $message = mysqli_real_escape_string($link, $form['message']);
 
-        $sql = "INSERT INTO Users (`UserEmail`, `UserName`, `UserPassword`,`UserComments`) VALUES ('$email', '$name', '$password','$message')";
+
+        $sql = "INSERT INTO Users (`UserEmail`, `UserName`, `UserPassword`,`UserImgPath`,`UserComments`) VALUES ('$email', '$name', '$password','$path','$message')";
         $result = mysqli_query($link, $sql);
 
         if ($result) {
-            $page_content = include_template('index.php', [
-            ]);
+            header('Location: ./index.php');
+            exit();
         }
     }
     else {
@@ -68,12 +54,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'errors' => $errors,
         ]);
     }
-}
-else {
+} else {
     $page_content = include_template('sign-up.php', [
         'categories' => $categories,
     ]);
 }
+
 
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
